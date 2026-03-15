@@ -1,0 +1,37 @@
+@let box = selectedBox();
+@let option = selectedSaltoOption();
+@let type = selectedSaltoType();
+
+@if (box) {
+  @for (group of saltoGroups(); track group.type) {
+    <div class="max-w-6xl mx-auto mb-10">
+      <!-- Group title -->
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">
+        {{ group.title }}
+      </h3>
+
+      <div class="flex flex-wrap gap-4">
+        @for (item of group.items; track item.id) {
+          @let isSelected = option?.id === item.id;
+
+          <button
+            class="px-6 py-3 cursor-pointer rounded-xl bg-white shadow border border-gray-200 transition font-medium"
+            [disabled]="!box"
+            [class.opacity-50]="!box"
+            [class.hover:shadow-lg]="box"
+            [class.hover:bg-indigo-500]="box && group.type === 'front'"
+            [class.hover:bg-purple-500]="box && group.type === 'back'"
+            [class.hover:text-white]="box"
+            [class.shadow-lg]="isSelected && group.type === type"
+            [class.text-white]="isSelected && group.type === type"
+            [class.bg-primary]="isSelected && group.type === type"
+            (click)="onSelectOption(item, group.type)"
+          >
+            {{ item.label }}
+            <span class="text-gray-400">({{ item.value }})</span>
+          </button>
+        }
+      </div>
+    </div>
+  }
+}

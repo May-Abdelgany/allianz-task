@@ -1,0 +1,29 @@
+<div
+  (click)="onBoxClick()"
+  class="rounded-2xl p-12 text-center transition cursor-pointer"
+  [class]="
+    isSelected()
+      ? 'bg-gradient-to-br from-indigo-500 to-blue-500 text-white shadow-xl'
+      : 'group bg-white border-2 border-dashed border-gray-300 hover:border-indigo-500 hover:shadow-lg'
+  "
+>
+  <p class="text-sm mb-2" [class]="isSelected() ? 'text-indigo-200' : 'text-gray-500'">
+    Element {{ box()?.id }}
+  </p>
+
+  @if (!currentBox()?.saltoId) {
+    <div class="text-4xl group-hover:text-indigo-500 transition">+</div>
+
+    <p class="mt-3 font-medium min-h-[24px]">
+      Select Element
+    </p>
+  } @else {
+    <h2 class="text-4xl font-bold mb-2">
+      {{ selectedSaltoOption()?.label }}
+    </h2>
+
+    <p class="text-lg">
+      {{ selectedSaltoOption()?.value }}
+    </p>
+  }
+</div>
